@@ -28,6 +28,8 @@ namespace Microsoft.Maui.DeviceTests.Stubs
 
 		public Thickness Margin { get; set; }
 
+		public FlowDirection FlowDirection => FlowDirection.LeftToRight;
+
 		public void Arrange(Rectangle bounds)
 		{
 			Frame = bounds;

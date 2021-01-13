@@ -1,6 +1,4 @@
-using Microsoft.Maui;
-
-namespace Microsoft.Maui
+﻿namespace Microsoft.Maui
 {
 	public interface IFrameworkElement
 	{
@@ -22,5 +20,7 @@ namespace Microsoft.Maui
 
 		double Width { get; }
 		double Height { get; }
+
+		FlowDirection FlowDirection { get; }
 	}
 }
