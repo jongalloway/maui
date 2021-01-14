@@ -66,8 +66,40 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new TimePicker());
 			verticalStack.Add(new Image() { Source = "https://github.com/dotnet/maui/blob/main/src/ControlGallery/src/Xamarin.Forms.ControlGallery.Android/Resources/drawable/FlowerBuds.jpg?raw=true" });
 
-			Content = verticalStack;
+			verticalStack.Add(CreateSampleGrid());
 
+			Content = verticalStack;
+		}
+
+		IView CreateSampleGrid()
+		{
+			var layout = new Microsoft.Maui.Controls.Layout2.GridLayout() { ColumnSpacing = 5, RowSpacing = 8 };
+
+			layout.AddRowDefinition(new RowDefinition() { Height = new GridLength(40) });
+			layout.AddRowDefinition(new RowDefinition() { Height = new GridLength(40) });
+
+			layout.AddColumnDefinition(new ColumnDefinition() { Width = new GridLength(100) });
+			layout.AddColumnDefinition(new ColumnDefinition() { Width = new GridLength(100) });
+
+			var topLeft = new Label { Text = "Top Left", BackgroundColor = Color.LightBlue };
+			layout.Add(topLeft);
+
+			var bottomLeft = new Label { Text = "Bottom Left", BackgroundColor = Color.Lavender };
+			layout.Add(bottomLeft);
+			layout.SetRow(bottomLeft, 1);
+
+			var topRight = new Label { Text = "Top Right", BackgroundColor = Color.Orange };
+			layout.Add(topRight);
+			layout.SetColumn(topRight, 1);
+
+			var bottomRight = new Label { Text = "Bottom Right", BackgroundColor = Color.MediumPurple };
+			layout.Add(bottomRight);
+			layout.SetRow(bottomRight, 1);
+			layout.SetColumn(bottomRight, 1);
+
+			layout.BackgroundColor = Color.Chartreuse;
+
+			return layout;
 		}
 
 		void SetupCompatibilityLayout()
