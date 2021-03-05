@@ -1,53 +1,117 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Foundation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using UIKit;
 using Microsoft.Maui.Hosting;
+using UIKit;
 
 namespace Microsoft.Maui
 {
-	public class MauiUIApplicationDelegate<TApplication> : UIApplicationDelegate, IUIApplicationDelegate where TApplication : MauiApp
+	public class MauiUIApplicationDelegate<TStartup, TApplication> : UIApplicationDelegate, IUIApplicationDelegate
+		where TStartup : IStartup
+		where TApplication : Application
 	{
+		bool _isSuspended;
+		Application? _app;
+		IWindow? _window;
+
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			if (!(Activator.CreateInstance(typeof(TStartup)) is TStartup startup))
+				throw new InvalidOperationException($"We weren't able to create the Startup {typeof(TStartup)}");
+
+			var appBuilder = AppHostBuilder
+				.CreateDefaultAppBuilder()
+				.ConfigureServices(ConfigureNativeServices);
+
+			startup.Configure(appBuilder);
+
+			appBuilder.Build();
+
 			if (!(Activator.CreateInstance(typeof(TApplication)) is TApplication app))
 				throw new InvalidOperationException($"We weren't able to create the App {typeof(TApplication)}");
 
-			var host = app.CreateBuilder().ConfigureServices(ConfigureNativeServices).Build(app);
+			_app = Application.Current;
 
-			if (MauiApp.Current == null || MauiApp.Current.Services == null)
+			appBuilder.SetServiceProvider(app);
+
+			if (_app == null || _app.Services == null)
 				throw new InvalidOperationException("App was not intialized");
 
+			_app.OnCreated();
 
-			var mauiContext = new MauiContext(MauiApp.Current.Services);
-			var window = app.CreateWindow(new ActivationState(mauiContext));
+			var mauiContext = new MauiContext(_app.Services);
+			_window = app.CreateWindow(new ActivationState(mauiContext));
 
-			window.MauiContext = mauiContext;
+			_window.MauiContext = mauiContext;
+
+			_window.OnCreated();
 
 			//Hack for now we set this on the App Static but this should be on IFrameworkElement
-			App.Current.SetHandlerContext(window.MauiContext);
+			_app.SetHandlerContext(_window.MauiContext);
 
-			var content = (window.Page as IView) ?? window.Page.View;
+			var content = (_window.Content as IView) ?? _window.Content?.View;
 
 			var uiWindow = new UIWindow
 			{
 				RootViewController = new UIViewController
 				{
-					View = content.ToNative(window.MauiContext)
+					View = content?.ToNative(_window.MauiContext)
 				}
 			};
 
 			uiWindow.MakeKeyAndVisible();
 
+			var iOSApplicationDelegateHandlers = Application.Current?.Services?.GetServices<IIosApplicationDelegateHandler>() ?? Enumerable.Empty<IIosApplicationDelegateHandler>();
+
+			foreach (var iOSApplicationDelegateHandler in iOSApplicationDelegateHandlers)
+				iOSApplicationDelegateHandler.FinishedLaunching(application, launchOptions);
+
 			return true;
+		}
+
+		public override void OnActivated(UIApplication application)
+		{
+			if (_isSuspended)
+			{
+				_isSuspended = false;
+				_app?.OnResumed();
+				_window?.OnResumed();
+
+				var iOSApplicationDelegateHandlers = Application.Current?.Services?.GetServices<IIosApplicationDelegateHandler>() ?? Enumerable.Empty<IIosApplicationDelegateHandler>();
+
+				foreach (var iOSApplicationDelegateHandler in iOSApplicationDelegateHandlers)
+					iOSApplicationDelegateHandler.OnActivated(application);
+			}
+		}
+
+		public override void OnResignActivation(UIApplication application)
+		{
+			_isSuspended = true;
+			_app?.OnPaused();
+			_window?.OnPaused();
+
+			var iOSApplicationDelegateHandlers = Application.Current?.Services?.GetServices<IIosApplicationDelegateHandler>() ?? Enumerable.Empty<IIosApplicationDelegateHandler>();
+
+			foreach (var iOSApplicationDelegateHandler in iOSApplicationDelegateHandlers)
+				iOSApplicationDelegateHandler.OnResignActivation(application);
+		}
+
+		public override void WillTerminate(UIApplication application)
+		{
+			_app?.OnStopped();
+			_window?.OnStopped();
+
+			var iOSApplicationDelegateHandlers = Application.Current?.Services?.GetServices<IIosApplicationDelegateHandler>() ?? Enumerable.Empty<IIosApplicationDelegateHandler>();
+
+			foreach (var iOSApplicationDelegateHandler in iOSApplicationDelegateHandlers)
+				iOSApplicationDelegateHandler.WillTerminate(application);
 		}
 
 		void ConfigureNativeServices(HostBuilderContext ctx, IServiceCollection services)
 		{
-			
+			services.AddTransient<IIosApplicationDelegateHandler, IosApplicationDelegateHandler>();
 		}
 	}
 }

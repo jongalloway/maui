@@ -2,11 +2,11 @@ using System;
 
 namespace Microsoft.Maui.DeviceTests.Stubs
 {
-	class AppStub : MauiApp, IDisposable
+	class ApplicationStub : Application, IDisposable
 	{
 		public override IWindow CreateWindow(IActivationState state)
 		{
-			throw new NotImplementedException();
+			return new WindowStub();
 		}
 
 		public void Dispose()

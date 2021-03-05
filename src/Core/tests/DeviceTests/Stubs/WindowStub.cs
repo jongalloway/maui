@@ -1,6 +1,6 @@
-using System;
+﻿using System;
 
-namespace Microsoft.Maui.UnitTests.TestClasses
+namespace Microsoft.Maui.DeviceTests.Stubs
 {
 	class WindowStub : IWindow
 	{

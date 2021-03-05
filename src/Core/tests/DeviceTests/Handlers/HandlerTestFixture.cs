@@ -8,16 +8,17 @@ namespace Microsoft.Maui.DeviceTests
 {
 	public class HandlerTestFixture : IDisposable
 	{
-		AppStub _app;
+		readonly StartupStub _startup;
+		ApplicationStub _application;
 		IHost _host;
 		IMauiContext _context;
 
 		public HandlerTestFixture()
 		{
-			_app = new AppStub();
-			_context = new ContextStub(_app);
-			_host = _app
-				.CreateBuilder()
+			_startup = new StartupStub();
+
+			var appBuilder = AppHostBuilder
+				.CreateDefaultAppBuilder()
 				.ConfigureFonts((ctx, fonts) =>
 				{
 					fonts.AddFont("dokdo_regular.ttf", "Dokdo");
@@ -25,8 +26,17 @@ namespace Microsoft.Maui.DeviceTests
 				.ConfigureServices((ctx, services) =>
 				{
 					services.AddSingleton(_context);
-				})
-				.Build(_app);
+				});
+
+			_startup.Configure(appBuilder);
+
+			_host = appBuilder.Build();
+
+			_application = new ApplicationStub();
+
+			appBuilder.SetServiceProvider(_application);
+
+			_context = new ContextStub(_application);
 		}
 
 		public void Dispose()
@@ -34,12 +44,12 @@ namespace Microsoft.Maui.DeviceTests
 			_host.Dispose();
 			_host = null;
 
-			_app.Dispose();
-			_app = null;
+			_application.Dispose();
+			_application = null;
 
 			_context = null;
 		}
 
-		public IApp App => _app;
+		public IApplication App => _application;
 	}
 }

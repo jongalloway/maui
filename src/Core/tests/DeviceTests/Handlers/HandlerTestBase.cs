@@ -16,7 +16,7 @@ namespace Microsoft.Maui.DeviceTests
 			_fixture = fixture;
 		}
 
-		public IApp App => _fixture.App;
+		public IApplication App => _fixture.App;
 
 		public Task<T> InvokeOnMainThreadAsync<T>(Func<T> func) =>
 			MainThread.InvokeOnMainThreadAsync(func);
@@ -75,7 +75,7 @@ namespace Microsoft.Maui.DeviceTests
 		{
 			var propInfo = view.GetType().GetProperty(property);
 
-			// set initial values
+			// Set initial values
 
 			propInfo.SetValue(view, expectedSetValue);
 
@@ -88,7 +88,7 @@ namespace Microsoft.Maui.DeviceTests
 			Assert.Equal(expectedSetValue, viewVal);
 			Assert.Equal(expectedSetValue, nativeVal);
 
-			// confirm can update
+			// Confirm can update
 
 			(viewVal, nativeVal) = await InvokeOnMainThreadAsync(() =>
 			{
@@ -101,7 +101,7 @@ namespace Microsoft.Maui.DeviceTests
 			Assert.Equal(expectedUnsetValue, viewVal);
 			Assert.Equal(expectedUnsetValue, nativeVal);
 
-			// confirm can revert
+			// Confirm can revert
 
 			(viewVal, nativeVal) = await InvokeOnMainThreadAsync(() =>
 			{

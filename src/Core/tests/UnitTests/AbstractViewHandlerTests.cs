@@ -14,9 +14,9 @@ namespace Microsoft.Maui.UnitTests
 			Assert.Equal(1, handlerStub.ConnectHandlerCount);
 			Assert.Equal(0, handlerStub.DisconnectHandlerCount);
 
-			handlerStub.SetVirtualView(new Maui.Controls.Button());
-			handlerStub.SetVirtualView(new Maui.Controls.Button());
-			handlerStub.SetVirtualView(new Maui.Controls.Button());
+			handlerStub.SetVirtualView(new Controls.Button());
+			handlerStub.SetVirtualView(new Controls.Button());
+			handlerStub.SetVirtualView(new Controls.Button());
 			Assert.Equal(1, handlerStub.ConnectHandlerCount);
 			Assert.Equal(0, handlerStub.DisconnectHandlerCount);
 
@@ -29,7 +29,7 @@ namespace Microsoft.Maui.UnitTests
 			Assert.Equal(1, handlerStub.DisconnectHandlerCount);
 
 
-			handlerStub.SetVirtualView(new Maui.Controls.Button());
+			handlerStub.SetVirtualView(new Controls.Button());
 			Assert.Equal(2, handlerStub.ConnectHandlerCount);
 			Assert.Equal(1, handlerStub.DisconnectHandlerCount);
 			(handlerStub as IViewHandler).DisconnectHandler();

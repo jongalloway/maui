@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Views;
 using Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers;
 using AView = Android.Views.View;
+using AWindow = Android.Views.Window;
 
 namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 {
@@ -95,7 +96,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android
 
 				if (isInViewCell)
 				{
-					Window window = Context.GetActivity().Window;
+					AWindow window = Context.GetActivity().Window;
 					if (hasFocus)
 					{
 						_startingInputMode = window.Attributes.SoftInputMode;
