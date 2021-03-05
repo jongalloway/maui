@@ -18,19 +18,21 @@ namespace Maui.Controls.Sample
 {
 	public class Startup : IStartup
 	{
+		public readonly static bool UseXamlPage = false;
+
 		public void Configure(IAppHostBuilder appBuilder)
 		{
 			appBuilder
 				#if __ANDROID__
 				// These only work on NET6
-				// .RegisterCompatibilityRenderer<Microsoft.Maui.Controls.ContentPage, Microsoft.Maui.Controls.Compatibility.Platform.Android.PageRenderer>()
-				// .RegisterCompatibilityRenderer<Microsoft.Maui.Controls.Button, Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers.ButtonRenderer>()
+				//.RegisterCompatibilityRenderer<Microsoft.Maui.Controls.ContentPage, Microsoft.Maui.Controls.Compatibility.Platform.Android.PageRenderer>()
+				//.RegisterCompatibilityRenderer<Microsoft.Maui.Controls.Button, Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers.ButtonRenderer>()
 				#endif
-				.ConfigureLogging(logging =>
-				{
-					logging.ClearProviders();
-					logging.AddConsole();
-				})
+				//.ConfigureLogging(logging =>
+				//{
+				//	logging.ClearProviders();
+				//	logging.AddConsole();
+				//})
 				.ConfigureAppConfiguration((hostingContext, config) =>
 				{
 					config.AddInMemoryCollection(new Dictionary<string, string>
