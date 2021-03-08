@@ -34,6 +34,11 @@ namespace Microsoft.Maui.Handlers
 			MapFont(handler, label);
 		}
 
+		public static void MapMaxLines(LabelHandler handler, ILabel label)
+		{
+			handler.TypedNativeView?.UpdateMaxLines(label);
+		}
+
 		public static void MapPadding(LabelHandler handler, ILabel label)
 		{
 			handler.TypedNativeView?.UpdatePadding(label);

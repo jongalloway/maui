@@ -601,6 +601,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.MacOS
 #endif
 		}
 
+		[PortHandler]
 		void UpdateMaxLines()
 		{
 			if (Element.MaxLines >= 0)

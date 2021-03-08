@@ -9,6 +9,7 @@ namespace Maui.Controls.Sample.Pages
 	public class MainPage : ContentPage, IPage
 	{
 		MainPageViewModel _viewModel;
+
 		public MainPage() : this(App.Current.Services.GetService<MainPageViewModel>())
 		{
 
@@ -23,6 +24,14 @@ namespace Maui.Controls.Sample.Pages
 
 		void SetupMauiLayout()
 		{
+			const string loremIpsum =
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
+				"Quisque ut dolor metus. Duis vel iaculis mauris, sit amet finibus mi. " +
+				"Etiam congue ornare risus, in facilisis libero tempor eget. " +
+				"Phasellus mattis mollis libero ut semper. In sit amet sapien odio. " +
+				"Sed interdum ullamcorper dui eu rutrum. Vestibulum non sagittis justo. " +
+				"Cras rutrum scelerisque elit, et porta est lobortis ac. " +
+				"Pellentesque eu ornare tortor. Sed bibendum a nisl at laoreet.";
 
 			var verticalStack = new VerticalStackLayout() { Spacing = 5, BackgroundColor = Color.AntiqueWhite };
 			var horizontalStack = new HorizontalStackLayout() { Spacing = 2, BackgroundColor = Color.CornflowerBlue };
@@ -35,6 +44,7 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Label { Text = "This should be BOLD text!", FontAttributes = FontAttributes.Bold });
 			verticalStack.Add(new Label { Text = "This should be a CUSTOM font!", FontFamily = "Dokdo" });
 			verticalStack.Add(new Label { Text = "This should have padding", Padding = new Thickness(40), BackgroundColor = Color.LightBlue });
+			verticalStack.Add(new Label { Text = loremIpsum, MaxLines = 2 });
 
 			var button = new Button() { Text = _viewModel.Text, WidthRequest = 200 };
 			var button2 = new Button()
@@ -67,7 +77,6 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Image() { Source = "https://github.com/dotnet/maui/blob/main/src/ControlGallery/src/Xamarin.Forms.ControlGallery.Android/Resources/drawable/FlowerBuds.jpg?raw=true" });
 
 			Content = verticalStack;
-
 		}
 
 		void SetupCompatibilityLayout()

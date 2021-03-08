@@ -79,5 +79,17 @@ namespace Microsoft.Maui.DeviceTests
 			await ValidatePropertyInitValue(label, () => label.FontAttributes.HasFlag(FontAttributes.Bold), GetNativeIsBold, isBold);
 			await ValidatePropertyInitValue(label, () => label.FontAttributes.HasFlag(FontAttributes.Italic), GetNativeIsItalic, isItalic);
 		}
+
+		[Fact(DisplayName = "MaxLines Initializes Correctly")]
+		public async Task MaxLinesInitializesCorrectly()
+		{
+			var label = new LabelStub()
+			{
+				Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+				MaxLines = 2
+			};
+
+			await ValidatePropertyInitValue(label, () => label.MaxLines, GetNativeMaxLines, label.MaxLines);
+		}
 	}
 }

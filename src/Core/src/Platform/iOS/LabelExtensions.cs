@@ -33,14 +33,23 @@ namespace Microsoft.Maui
 			nativeLabel.Font = uiFont;
 		}
 
+		public static void UpdateMaxLines(this UILabel nativeLabel, ILabel label)
+		{
+			int maxLines = label.MaxLines;
+
+			if (maxLines < 0)
+				maxLines = 0;
+
+			nativeLabel.Lines = maxLines;
+		}
+
 		public static void UpdatePadding(this MauiLabel nativeLabel, ILabel label) 
 		{
 			nativeLabel.TextInsets = new UIEdgeInsets(
-					(float)label.Padding.Top,
-					(float)label.Padding.Left,
-					(float)label.Padding.Bottom,
-					(float)label.Padding.Right);
-			
+				(float)label.Padding.Top,
+				(float)label.Padding.Left,
+				(float)label.Padding.Bottom,
+				(float)label.Padding.Right);
 		}
 	}
 }

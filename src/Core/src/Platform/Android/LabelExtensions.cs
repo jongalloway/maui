@@ -34,7 +34,16 @@ namespace Microsoft.Maui
 			var sp = fontManager.GetScaledPixel(font);
 			textView.SetTextSize(ComplexUnitType.Sp, sp);
 		}
+		public static void UpdateMaxLines(this TextView textView, ILabel label)
+		{
+			int maxLines = label.MaxLines;
 
+			if (maxLines <= 0)
+				maxLines = int.MaxValue;
+
+			textView.SetMaxLines(maxLines);
+		}
+				
 		public static void UpdatePadding(this TextView textView, ILabel label) 
 		{
 			var context = textView.Context;
@@ -45,10 +54,10 @@ namespace Microsoft.Maui
 			}
 
 			textView.SetPadding(
-					(int)context.ToPixels(label.Padding.Left),
-					(int)context.ToPixels(label.Padding.Top),
-					(int)context.ToPixels(label.Padding.Right),
-					(int)context.ToPixels(label.Padding.Bottom));
+				(int)context.ToPixels(label.Padding.Left),
+				(int)context.ToPixels(label.Padding.Top),
+				(int)context.ToPixels(label.Padding.Right),
+				(int)context.ToPixels(label.Padding.Bottom));
 		}
 	}
 }

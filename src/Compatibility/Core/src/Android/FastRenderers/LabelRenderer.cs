@@ -369,6 +369,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.Android.FastRenderers
 			_lastSizeRequest = null;
 		}
 
+		[PortHandler]
 		void UpdateMaxLines()
 		{
 			this.SetMaxLines(Element);

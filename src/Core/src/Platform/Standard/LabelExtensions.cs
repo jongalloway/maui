@@ -12,9 +12,14 @@ namespace Microsoft.Maui
 
 		}
 
+		public static void UpdateMaxLines(this object nothing, ILabel label)
+		{
+
+		}
+
 		public static void UpdatePadding(this object nothing, ILabel label)
-		{ 
-		
+		{
+
 		}
 	}
 }
