@@ -48,6 +48,11 @@ namespace Microsoft.Maui.Handlers
 			MapFont(handler, label);
 		}
 
+		public static void MapLineBreakMode(LabelHandler handler, ILabel label)
+		{
+			handler.TypedNativeView?.UpdateLineBreakMode(label);
+		}
+
 		public static void MapPadding(LabelHandler handler, ILabel label) 
 		{
 			handler.TypedNativeView?.UpdatePadding(label);

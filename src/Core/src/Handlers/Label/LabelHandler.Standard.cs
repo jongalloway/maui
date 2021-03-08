@@ -11,6 +11,7 @@ namespace Microsoft.Maui.Handlers
 		public static void MapFontFamily(LabelHandler handler, ILabel label) { }
 		public static void MapFontSize(LabelHandler handler, ILabel label) { }
 		public static void MapFontAttributes(LabelHandler handler, ILabel label) { }
+		public static void MapLineBreakMode(LabelHandler handler, ILabel label) { }
 		public static void MapPadding(LabelHandler handler, ILabel label) {	}
 	}
 }
