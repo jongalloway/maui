@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Microsoft.Maui.DeviceTests
 {
-	[Category("EntryHandler")]
+	[Category(TestCategory.Entry)]
 	public partial class EntryHandlerTests : HandlerTestBase<EntryHandler>
 	{
 		public EntryHandlerTests(HandlerTestFixture fixture) : base(fixture)
@@ -46,6 +46,19 @@ namespace Microsoft.Maui.DeviceTests
 			};
 
 			await ValidatePropertyInitValue(entry, () => entry.IsPassword, GetNativeIsPassword, isPassword);
+		}
+
+		[Theory(DisplayName = "Is Text Prediction Enabled")]
+		[InlineData(true)]
+		[InlineData(false)]
+		public async Task IsTextPredictionEnabledCorrectly(bool isEnabled)
+		{
+			var entry = new EntryStub()
+			{
+				IsTextPredictionEnabled = isEnabled
+			};
+
+			await ValidatePropertyInitValue(entry, () => entry.IsTextPredictionEnabled, GetNativeIsTextPredictionEnabled , isEnabled);
 		}
 
 		[Theory(DisplayName = "IsPassword Updates Correctly")]
@@ -102,6 +115,23 @@ namespace Microsoft.Maui.DeviceTests
 						n = null; // native platforms may not upport null text
 					return n;
 				},
+				setValue,
+				unsetValue);
+		}
+
+		[Theory(DisplayName = "IsTextPredictionEnabled Updates Correctly")]
+		[InlineData(true, true)]
+		[InlineData(true, false)]
+		[InlineData(false, true)]
+		[InlineData(false, false)]
+		public async Task IsTextPredictionEnabledUpdatesCorrectly(bool setValue, bool unsetValue)
+		{
+			var entry = new EntryStub();
+
+			await ValidatePropertyUpdatesValue(
+				entry,
+				nameof(IEntry.IsTextPredictionEnabled),
+				GetNativeIsTextPredictionEnabled,
 				setValue,
 				unsetValue);
 		}
