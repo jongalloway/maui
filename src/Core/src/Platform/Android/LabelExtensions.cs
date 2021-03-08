@@ -35,6 +35,11 @@ namespace Microsoft.Maui
 			textView.SetTextSize(ComplexUnitType.Sp, sp);
 		}
 
+		public static void UpdateHorizontalTextAlignment(this TextView textView, ILabel label)
+		{
+			textView.Gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags();
+		}
+
 		public static void UpdatePadding(this TextView textView, ILabel label) 
 		{
 			var context = textView.Context;
@@ -45,10 +50,10 @@ namespace Microsoft.Maui
 			}
 
 			textView.SetPadding(
-					(int)context.ToPixels(label.Padding.Left),
-					(int)context.ToPixels(label.Padding.Top),
-					(int)context.ToPixels(label.Padding.Right),
-					(int)context.ToPixels(label.Padding.Bottom));
+				(int)context.ToPixels(label.Padding.Left),
+				(int)context.ToPixels(label.Padding.Top),
+				(int)context.ToPixels(label.Padding.Right),
+				(int)context.ToPixels(label.Padding.Bottom));
 		}
 	}
 }

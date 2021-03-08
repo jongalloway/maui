@@ -12,6 +12,11 @@ namespace Microsoft.Maui
 
 		}
 
+		public static void UpdateHorizontalTextAlignment(this object nothing, ILabel label)
+		{
+
+		}
+
 		public static void UpdatePadding(this object nothing, ILabel label)
 		{ 
 		

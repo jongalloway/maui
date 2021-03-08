@@ -5,10 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Maui.Controls.Sample.Pages
 {
-
 	public class MainPage : ContentPage, IPage
 	{
 		MainPageViewModel _viewModel;
+
 		public MainPage() : this(App.Current.Services.GetService<MainPageViewModel>())
 		{
 
@@ -23,11 +23,10 @@ namespace Maui.Controls.Sample.Pages
 
 		void SetupMauiLayout()
 		{
-
 			var verticalStack = new VerticalStackLayout() { Spacing = 5, BackgroundColor = Color.AntiqueWhite };
 			var horizontalStack = new HorizontalStackLayout() { Spacing = 2, BackgroundColor = Color.CornflowerBlue };
 
-			var label = new Label { Text = "This will disappear in ~5 seconds", BackgroundColor = Color.Fuchsia };
+			var label = new Label { Text = "This will disappear in ~5 seconds", BackgroundColor = Color.Fuchsia, HorizontalTextAlignment = TextAlignment.Center };
 			label.Margin = new Thickness(15, 10, 20, 15);
 
 			verticalStack.Add(label);
@@ -67,7 +66,6 @@ namespace Maui.Controls.Sample.Pages
 			verticalStack.Add(new Image() { Source = "https://github.com/dotnet/maui/blob/main/src/ControlGallery/src/Xamarin.Forms.ControlGallery.Android/Resources/drawable/FlowerBuds.jpg?raw=true" });
 
 			Content = verticalStack;
-
 		}
 
 		void SetupCompatibilityLayout()

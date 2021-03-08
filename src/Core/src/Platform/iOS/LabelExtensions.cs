@@ -33,14 +33,21 @@ namespace Microsoft.Maui
 			nativeLabel.Font = uiFont;
 		}
 
+		public static void UpdateHorizontalTextAlignment(this UILabel nativeLabel, ILabel label)
+		{
+			// We don't have a FlowDirection yet, so there's nothing to pass in here. 
+			// TODO: Ezhart Update this when FlowDirection is available 
+			// (or update the extension to take an ILabel instead of an alignment and work it out from there) 
+			nativeLabel.TextAlignment = label.HorizontalTextAlignment.ToNative(true);
+		}
+
 		public static void UpdatePadding(this MauiLabel nativeLabel, ILabel label) 
 		{
 			nativeLabel.TextInsets = new UIEdgeInsets(
-					(float)label.Padding.Top,
-					(float)label.Padding.Left,
-					(float)label.Padding.Bottom,
-					(float)label.Padding.Right);
-			
+				(float)label.Padding.Top,
+				(float)label.Padding.Left,
+				(float)label.Padding.Bottom,
+				(float)label.Padding.Right);
 		}
 	}
 }

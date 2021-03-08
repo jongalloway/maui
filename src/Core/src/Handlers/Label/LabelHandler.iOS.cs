@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Platform.iOS;
-using UIKit;
 
 namespace Microsoft.Maui.Handlers
 {
@@ -32,6 +31,11 @@ namespace Microsoft.Maui.Handlers
 		public static void MapFontAttributes(LabelHandler handler, ILabel label)
 		{
 			MapFont(handler, label);
+		}
+
+		public static void MapHorizontalTextAlignment(LabelHandler handler, ILabel label)
+		{
+			handler.TypedNativeView?.UpdateHorizontalTextAlignment(label);
 		}
 
 		public static void MapPadding(LabelHandler handler, ILabel label)
