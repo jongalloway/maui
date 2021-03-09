@@ -108,5 +108,25 @@ namespace Microsoft.Maui.UnitTests.Layouts
 			var expectedRectangle2 = new Rectangle(100, 0, 100, 150);
 			view2.Received().Arrange(Arg.Is(expectedRectangle2));
 		}
+
+		// You can theory this with all the combos of horizontal layoutoptions
+		[Fact]
+		public void ChildLayoutOptionsStart() 
+		{
+			var stack = CreateTestLayout();
+			stack.HorizontalLayoutOptions.Returns(Primitives.LayoutOptions.Stretch);
+			var manager = new HorizontalStackLayoutManager(stack);
+
+			var view1 = CreateTestView(new Size(100, 50));
+			view1.HorizontalLayoutOptions.Returns(Primitives.LayoutOptions.Start);
+			var children = new List<IView>() { view1 }.AsReadOnly();
+			stack.Children.Returns(children);
+
+			var measurement = manager.Measure(300, double.PositiveInfinity);
+			manager.Arrange(new Rectangle(Point.Zero, measurement));
+
+			var expectedChildSize = new Rectangle(0, 0, 100, 50);
+			view1.Received().Arrange(Arg.Is(expectedChildSize));
+		}
 	}
 }

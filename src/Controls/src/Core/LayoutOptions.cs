@@ -35,5 +35,22 @@ namespace Microsoft.Maui.Controls
 			get { return (_flags & (int)LayoutExpandFlag.Expand) != 0; }
 			set { _flags = (_flags & 3) | (value ? (int)LayoutExpandFlag.Expand : 0); }
 		}
+
+		internal Primitives.LayoutOptions ToCore()
+		{
+			switch (Alignment)
+			{
+				case LayoutAlignment.Start:
+					return Primitives.LayoutOptions.Start;
+				case LayoutAlignment.Center:
+					return Primitives.LayoutOptions.Center;
+				case LayoutAlignment.End:
+					return Primitives.LayoutOptions.End;
+				case LayoutAlignment.Fill:
+					return Primitives.LayoutOptions.Stretch;
+			}
+
+			return Primitives.LayoutOptions.Start;
+		}
 	}
 }

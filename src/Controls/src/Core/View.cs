@@ -195,6 +195,8 @@ namespace Microsoft.Maui.Controls
 		double IFrameworkElement.Width { get => WidthRequest; }
 		double IFrameworkElement.Height { get => HeightRequest; }
 
+		Primitives.LayoutOptions IView.HorizontalLayoutOptions => HorizontalOptions.ToCore();
+
 		#endregion
 	}
 }

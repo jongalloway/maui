@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Maui;
+using Microsoft.Maui.Primitives;
 
 namespace Microsoft.Maui.Tests
 {
@@ -26,6 +27,8 @@ namespace Microsoft.Maui.Tests
 		public double Height => throw new NotImplementedException();
 
 		public Thickness Margin => throw new NotImplementedException();
+
+		public LayoutOptions HorizontalLayoutOptions => throw new NotImplementedException();
 
 		public void Arrange(Rectangle bounds)
 		{
