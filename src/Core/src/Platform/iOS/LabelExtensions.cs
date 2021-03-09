@@ -1,3 +1,4 @@
+using Foundation;
 using Microsoft.Maui.Platform.iOS;
 using UIKit;
 
@@ -36,11 +37,36 @@ namespace Microsoft.Maui
 		public static void UpdatePadding(this MauiLabel nativeLabel, ILabel label) 
 		{
 			nativeLabel.TextInsets = new UIEdgeInsets(
-					(float)label.Padding.Top,
-					(float)label.Padding.Left,
-					(float)label.Padding.Bottom,
-					(float)label.Padding.Right);
-			
+				(float)label.Padding.Top,
+				(float)label.Padding.Left,
+				(float)label.Padding.Bottom,
+				(float)label.Padding.Right);
+		}
+
+		public static void UpdateTextDecorations(this UILabel nativeLabel, ILabel label)
+		{
+			if (nativeLabel.AttributedText != null && !(nativeLabel.AttributedText?.Length > 0))
+				return;
+
+			var textDecorations = label?.TextDecorations;
+
+			var newAttributedText = nativeLabel.AttributedText != null ? new NSMutableAttributedString(nativeLabel.AttributedText) : new NSMutableAttributedString(label?.Text ?? string.Empty);
+			var strikeThroughStyleKey = UIStringAttributeKey.StrikethroughStyle;
+			var underlineStyleKey = UIStringAttributeKey.UnderlineStyle;
+
+			var range = new NSRange(0, newAttributedText.Length);
+
+			if ((textDecorations & TextDecorations.Strikethrough) == 0)
+				newAttributedText.RemoveAttribute(strikeThroughStyleKey, range);
+			else
+				newAttributedText.AddAttribute(strikeThroughStyleKey, NSNumber.FromInt32((int)NSUnderlineStyle.Single), range);
+
+			if ((textDecorations & TextDecorations.Underline) == 0)
+				newAttributedText.RemoveAttribute(underlineStyleKey, range);
+			else
+				newAttributedText.AddAttribute(underlineStyleKey, NSNumber.FromInt32((int)NSUnderlineStyle.Single), range);
+
+			nativeLabel.AttributedText = newAttributedText;
 		}
 	}
 }

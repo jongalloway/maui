@@ -13,5 +13,7 @@ namespace Microsoft.Maui.DeviceTests.Stubs
 		public double FontSize { get; set; }
 
 		public Thickness Padding { get; set; }
+
+		public TextDecorations TextDecorations { get; set; }
 	}
 }

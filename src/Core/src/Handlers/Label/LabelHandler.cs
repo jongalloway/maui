@@ -10,6 +10,7 @@ namespace Microsoft.Maui.Handlers
 			[nameof(ILabel.FontSize)] = MapFontSize,
 			[nameof(ILabel.FontAttributes)] = MapFontAttributes,
 			[nameof(ILabel.Padding)] = MapPadding,
+			[nameof(ILabel.TextDecorations)] = MapTextDecorations
 		};
 
 		public LabelHandler() : base(LabelMapper)
