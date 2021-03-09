@@ -15,7 +15,7 @@ namespace Microsoft.Maui
 		/// <summary>
 		/// Create the application main window.
 		/// </summary>
-		/// <param name="state">The activation state of the application.</param>
+		/// <param name="state">The state of the activation of the application.</param>
 		/// <returns>Created window.</returns>
 		IWindow CreateWindow(IActivationState state);
 
