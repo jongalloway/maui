@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using Android.Content.Res;
 using System.Collections.Generic;
+using Android.Runtime;
+using Android.Content;
 using MauiApplication = Microsoft.Maui.Application;
 
 namespace Microsoft.Maui
@@ -132,6 +134,14 @@ namespace Microsoft.Maui
 
 			foreach (var androidLifecycleHandler in GetAndroidLifecycleHandler())
 				androidLifecycleHandler.OnConfigurationChanged(this, newConfig);
+		}
+
+		protected override void OnActivityResult(int requestCode, [GeneratedEnum] Android.App.Result resultCode, Intent? data)
+		{
+			base.OnActivityResult(requestCode, resultCode, data);
+
+			foreach (var androidLifecycleHandler in GetAndroidLifecycleHandler())
+				androidLifecycleHandler.OnActivityResult(this, requestCode, resultCode, data);
 		}
 
 		void UpdateApplicationLifecycleState()

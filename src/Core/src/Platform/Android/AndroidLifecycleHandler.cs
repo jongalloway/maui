@@ -1,6 +1,8 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.Res;
 using Android.OS;
+using Android.Runtime;
 
 namespace Microsoft.Maui
 {
@@ -47,6 +49,11 @@ namespace Microsoft.Maui
 		}
 
 		public virtual void OnConfigurationChanged(Activity activity, Configuration newConfig)
+		{
+
+		}
+
+		public virtual void OnActivityResult(Activity activity, int requestCode, [GeneratedEnum] Result resultCode, Intent? data)
 		{
 
 		}
