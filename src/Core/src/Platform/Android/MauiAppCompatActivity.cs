@@ -5,6 +5,8 @@ using System;
 using AndroidX.CoordinatorLayout.Widget;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+using Android.Content.Res;
+using System.Collections.Generic;
 using MauiApplication = Microsoft.Maui.Application;
 
 namespace Microsoft.Maui
@@ -108,9 +110,33 @@ namespace Microsoft.Maui
 			UpdateApplicationLifecycleState();
 		}
 
+		protected override void OnSaveInstanceState(Bundle outState)
+		{
+			base.OnSaveInstanceState(outState);
+
+			foreach (var androidLifecycleHandler in GetAndroidLifecycleHandler())
+				androidLifecycleHandler.OnSaveInstanceState(this, outState);
+		}
+
+		protected override void OnRestoreInstanceState(Bundle savedInstanceState)
+		{
+			base.OnRestoreInstanceState(savedInstanceState);
+
+			foreach (var androidLifecycleHandler in GetAndroidLifecycleHandler())
+				androidLifecycleHandler.OnRestoreInstanceState(this, savedInstanceState);
+		}
+
+		public override void OnConfigurationChanged(Configuration newConfig)
+		{
+			base.OnConfigurationChanged(newConfig);
+
+			foreach (var androidLifecycleHandler in GetAndroidLifecycleHandler())
+				androidLifecycleHandler.OnConfigurationChanged(this, newConfig);
+		}
+
 		void UpdateApplicationLifecycleState()
 		{
-			var androidLifecycleHandlers = MauiApplication.Current?.Services?.GetServices<IAndroidLifecycleHandler>() ?? Enumerable.Empty<IAndroidLifecycleHandler>();
+			var androidLifecycleHandlers = GetAndroidLifecycleHandler();
 
 			if (_previousState == AndroidApplicationLifecycleState.OnCreate && _currentState == AndroidApplicationLifecycleState.OnStart)
 			{
@@ -145,5 +171,8 @@ namespace Microsoft.Maui
 					androidLifecycleHandler.OnStop(this);
 			}
 		}
+
+		IEnumerable<IAndroidLifecycleHandler> GetAndroidLifecycleHandler() =>
+			MauiApplication.Current?.Services?.GetServices<IAndroidLifecycleHandler>() ?? Enumerable.Empty<IAndroidLifecycleHandler>();
 	}
 }

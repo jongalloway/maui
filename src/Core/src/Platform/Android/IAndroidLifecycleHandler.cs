@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content.Res;
 using Android.OS;
 
 namespace Microsoft.Maui
@@ -47,5 +48,27 @@ namespace Microsoft.Maui
 		/// </summary>
 		/// <param name="activity">The activity on which we receive lifecycle events callbacks</param>
 		void OnDestroy(Activity activity);
+
+		/// <summary>
+		/// Called to retrieve per-instance state from an activity before being killed so that the state can be
+		/// restored in OnCreate or OnRestoreInstanceState.
+		/// </summary>
+		/// <param name="activity">The activity on which we receive lifecycle events callbacks</param>
+		/// <param name="outState">Bundle in which to place your saved state.</param>
+		void OnSaveInstanceState(Activity activity, Bundle outState);
+
+		/// <summary>
+		/// Restore the state of the dialog from a previously saved bundle.
+		/// </summary>
+		/// <param name="activity">The activity on which we receive lifecycle events callbacks</param>
+		/// <param name="savedInstanceState">The state of the dialog previously saved.</param>
+		void OnRestoreInstanceState(Activity activity, Bundle savedInstanceState);
+
+		/// <summary>
+		/// Called when the current configuration of the resources being used by the application have changed.
+		/// </summary>
+		/// <param name="activity">The activity on which we receive lifecycle events callbacks</param>
+		/// <param name="newConfig">The new resource configuration.</param>
+		void OnConfigurationChanged(Activity activity, Configuration newConfig);
 	}
 }
