@@ -220,12 +220,14 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			ElementController.SetValueFromRenderer(VisualElement.IsFocusedPropertyKey, true);
 		}
 
+		[PortHandler("Ported Text setter")]
 		void OnEditingChanged(object sender, EventArgs eventArgs)
 		{
 			ElementController.SetValueFromRenderer(Entry.TextProperty, Control.Text);
 			UpdateCursorFromControl(null);
 		}
 
+		[PortHandler("Ported Text setter")]
 		void OnEditingEnded(object sender, EventArgs e)
 		{
 			// Typing aid changes don't always raise EditingChanged event
@@ -335,6 +337,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 				Control.SecureTextEntry = Element.IsPassword;
 		}
 
+		[PortHandler]
 		protected virtual void UpdatePlaceholder()
 		{
 			var formatted = (FormattedString)Element.Placeholder;
@@ -362,6 +365,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 		protected virtual void UpdateAttributedPlaceholder(NSAttributedString nsAttributedString) =>
 			Control.AttributedPlaceholder = nsAttributedString;
 
+		[PortHandler]
 		void UpdateText()
 		{
 			var text = Element.UpdateFormsText(Element.Text, Element.TextTransform);
@@ -547,6 +551,7 @@ namespace Microsoft.Maui.Controls.Compatibility.Platform.iOS
 			}
 		}
 
+		[PortHandler]
 		void UpdateIsReadOnly()
 		{
 			Control.UserInteractionEnabled = !Element.IsReadOnly;

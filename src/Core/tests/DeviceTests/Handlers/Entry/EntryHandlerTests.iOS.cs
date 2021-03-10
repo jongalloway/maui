@@ -40,11 +40,17 @@ namespace Microsoft.Maui.DeviceTests
 		string GetNativeText(EntryHandler entryHandler) =>
 			GetNativeEntry(entryHandler).Text;
 
+		void SetNativeText(EntryHandler entryHandler, string text) =>
+			GetNativeEntry(entryHandler).Text = text;
+
 		Color GetNativeTextColor(EntryHandler entryHandler) =>
 			GetNativeEntry(entryHandler).TextColor.ToColor();
 
 		bool GetNativeIsPassword(EntryHandler entryHandler) =>
 			GetNativeEntry(entryHandler).SecureTextEntry;
+
+		string GetNativePlaceholder(EntryHandler entryHandler) =>
+			GetNativeEntry(entryHandler).Placeholder;
 
 		bool GetNativeIsTextPredictionEnabled(EntryHandler entryHandler) =>
 			GetNativeEntry(entryHandler).AutocorrectionType == UITextAutocorrectionType.Yes;
@@ -57,5 +63,8 @@ namespace Microsoft.Maui.DeviceTests
 
 		bool GetNativeIsItalic(EntryHandler entryHandler) =>
 			GetNativeEntry(entryHandler).Font.FontDescriptor.SymbolicTraits.HasFlag(UIFontDescriptorSymbolicTraits.Italic);
+
+		bool GetNativeIsReadOnly(EntryHandler entryHandler) =>
+			!GetNativeEntry(entryHandler).UserInteractionEnabled;
 	}
 }
