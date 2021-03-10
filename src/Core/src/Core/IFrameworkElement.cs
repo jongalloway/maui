@@ -70,6 +70,11 @@ namespace Microsoft.Maui
 		bool IsArrangeValid { get; }
 
 		/// <summary>
+ 		/// Gets a value indicating whether the computed size and position of child elements in this element's layout are valid.
+ 		/// </summary>
+ 		void InvalidateMeasure();
+		
+		/// <summary>
 		/// Method that is called to invalidate the layout of this FrameworkElement.
 		/// </summary>
 		void InvalidateArrange();
