@@ -27,10 +27,17 @@ namespace Microsoft.Maui
 
 		public static void UpdateFont(this UILabel nativeLabel, ILabel label, IFontManager fontManager)
 		{
-			var font = label.GetFont();
-
-			var uiFont = fontManager.GetFont(font);
+			var uiFont = fontManager.GetFont(label.Font);
 			nativeLabel.Font = uiFont;
+		}
+
+		public static void UpdatePadding(this MauiLabel nativeLabel, ILabel label)
+		{
+			nativeLabel.TextInsets = new UIEdgeInsets(
+				(float)label.Padding.Top,
+				(float)label.Padding.Left,
+				(float)label.Padding.Bottom,
+				(float)label.Padding.Right);
 		}
 
 		public static void UpdateHorizontalTextAlignment(this UILabel nativeLabel, ILabel label)
@@ -39,15 +46,6 @@ namespace Microsoft.Maui
 			// TODO: Ezhart Update this when FlowDirection is available 
 			// (or update the extension to take an ILabel instead of an alignment and work it out from there) 
 			nativeLabel.TextAlignment = label.HorizontalTextAlignment.ToNative(true);
-		}
-
-		public static void UpdatePadding(this MauiLabel nativeLabel, ILabel label) 
-		{
-			nativeLabel.TextInsets = new UIEdgeInsets(
-				(float)label.Padding.Top,
-				(float)label.Padding.Left,
-				(float)label.Padding.Bottom,
-				(float)label.Padding.Right);
 		}
 	}
 }

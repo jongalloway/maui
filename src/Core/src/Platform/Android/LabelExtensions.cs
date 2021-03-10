@@ -26,7 +26,7 @@ namespace Microsoft.Maui
 
 		public static void UpdateFont(this TextView textView, ILabel label, IFontManager fontManager)
 		{
-			var font = label.GetFont();
+			var font = label.Font;
 
 			var tf = fontManager.GetTypeface(font);
 			textView.Typeface = tf;
@@ -35,12 +35,7 @@ namespace Microsoft.Maui
 			textView.SetTextSize(ComplexUnitType.Sp, sp);
 		}
 
-		public static void UpdateHorizontalTextAlignment(this TextView textView, ILabel label)
-		{
-			textView.Gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags();
-		}
-
-		public static void UpdatePadding(this TextView textView, ILabel label) 
+		public static void UpdatePadding(this TextView textView, ILabel label)
 		{
 			var context = textView.Context;
 
@@ -54,6 +49,11 @@ namespace Microsoft.Maui
 				(int)context.ToPixels(label.Padding.Top),
 				(int)context.ToPixels(label.Padding.Right),
 				(int)context.ToPixels(label.Padding.Bottom));
+		}
+
+		public static void UpdateHorizontalTextAlignment(this TextView textView, ILabel label)
+		{
+			textView.Gravity = label.HorizontalTextAlignment.ToHorizontalGravityFlags();
 		}
 	}
 }
