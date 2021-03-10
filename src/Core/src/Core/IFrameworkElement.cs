@@ -69,14 +69,11 @@ namespace Microsoft.Maui
 		/// </summary>
 		bool IsArrangeValid { get; }
 
-		double Width { get; }
-		double Height { get; }
-
-		FlowDirection FlowDirection { get; }
-
 		/// <summary>
 		/// Method that is called to invalidate the layout of this FrameworkElement.
 		/// </summary>
 		void InvalidateArrange();
+		
+		FlowDirection FlowDirection { get; }
 	}
 }
